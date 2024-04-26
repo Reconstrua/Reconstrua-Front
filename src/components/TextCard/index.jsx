@@ -1,16 +1,29 @@
 import PropTypes from "prop-types"
 import {Button} from "../Button"
+import { useEffect, useState } from "react"
 
-export function TextCard({title, subtitle,titleClass , subtitleClass , ...props}){
+export function TextCard({title, subtitle,titleClass , subtitleClass , buttonText, buttonColor, ...props}){
+  const [showButton, setShowButton] = useState(false);
+  const [buttonTheme, setButtonTheme] = useState()
+
+  const buttonVisibility = () => {
+    if (buttonText && !showButton) {
+      setShowButton(true);
+    }
+  };
+
+  useEffect(()=>{
+    buttonVisibility()
+  }, [])
+
   return(
     <div {...props}>
       <h1 className={titleClass} >{title}</h1>
       <h4 className={subtitleClass}>{subtitle}</h4>
-      <Button className="font-semibold bg-component-dark text-dark-green mt-8 rounded-2xl py-4 px-5 flex text-buttonClamp">Torne-se um Voluntário </Button>
+      <Button dark={false} className={showButton ? '' : "hidden"}>{buttonText}</Button>
     </div>
   )
 }
-
 
 TextCard.propTypes = {
   title: PropTypes.node.isRequired,
