@@ -20,6 +20,6 @@ TextCard.propTypes = {
   subtitleClass: PropTypes.string,
   buttonText: PropTypes.string,
   buttonClass: PropTypes.string,
-  dark: PropTypes.bool,
-  disabled: PropTypes.bool,
+  dark: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }

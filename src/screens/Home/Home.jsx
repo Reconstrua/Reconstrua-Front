@@ -23,7 +23,6 @@ export function Home() {
             subtitle={<>Ajudamos pessoas em situação de vulnerabilidade <br /> social a realizar o sonho de ter sua própria casa. <br /> Fazemos isso conectando voluntários, doadores de <br /> materiais de construção e famílias necessitadas.</>}
             subtitleClass="md:text-lg text-subtitleClamp text-dark-text"
             buttonText="Torne-se um voluntário"
-            buttonClass="md:py-2 md:px-3 md:text-lg hover:bg-component-light hover:text-dark-text transform hover:scale-110 transition"
             disabled={false}
             dark={false}
           />
@@ -44,7 +43,6 @@ export function Home() {
             subtitle={<>A Reconstrua é mais do que uma organização, é um movimento impulsionado pela convicção de que todos merecem um lugar seguro para chamar de lar. Nós não apenas construímos casas, mas transformamos sonhos em realidades tangíveis, criando lares para pessoas em situação de vulnerabilidade social.<br></br>Trabalhamos em estreita colaboração com comunidades de baixa renda, voluntários dedicados e doadores de materiais de construção para tornar o sonho da casa própria uma realidade.</>}
             subtitleClass="md:text-lg text-subtitleClamp text-dark-text"
             buttonText="Faça uma doação"
-            buttonClass="md:py-2 md:px-3 md:text-lg hover:bg-component-dark hover:text-dark-green transform hover:scale-110 transition"
             disabled={false}
             dark={true}
           />
