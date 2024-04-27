@@ -1,15 +1,22 @@
-import PropTypes from "prop-types"
-import { twMerge } from 'tailwind-merge'
+import PropTypes from "prop-types";
+import { twMerge } from 'tailwind-merge';
 
-export function Button({ children, dark, ...props }) {
+export function Button({ children, dark, disabled, buttonClass }) {
   return (
-    <button {...props} className={twMerge(
-      "font-semibold mt-8 rounded-2xl py-4 px-5 flex text-buttonClamp",
-      dark ? 'bg-component-light text-light-green' : 'bg-component-dark text-dark-green'
-    )}>{children}</button>
-  )
+    <button className={twMerge(
+      "font-bold mt-8 rounded-2xl py-4 px-5 flex text-buttonClamp",
+      dark ? 'bg-component-light text-dark-text' : 'bg-component-dark text-dark-green',
+      disabled ? "hidden" : null,
+      buttonClass
+    )}>
+      {children}
+    </button>
+  );
 }
 
 Button.propTypes = {
-  children: PropTypes.string
-}
+  children: PropTypes.string.isRequired,
+  dark: PropTypes.bool,
+  disabled: PropTypes.bool,
+  buttonClass: PropTypes.string,
+};

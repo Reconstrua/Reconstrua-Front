@@ -5,7 +5,7 @@ export function NavBar(){
   return(
     <>
       <nav className="flex justify-between w-[85%] items-center">
-        <img src={reconstruaLogo} className="w-60" alt="Reconstrua WebSite Logo" />
+        <img src={reconstruaLogo} className="w-[300px] md:w-32" alt="Reconstrua WebSite Logo" />
         <div className="text-dark-text font-semibold flex gap-14">
           <Link path="#">Início</Link>
           <Link>Doe</Link>

@@ -4,6 +4,22 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      '2xl': { 'max': '1535px' },
+      // => @media (max-width: 1535px) { ... }
+
+      'xl': { 'max': '1279px' },
+      // => @media (max-width: 1279px) { ... }
+
+      'lg': { 'max': '1023px' },
+      // => @media (max-width: 1023px) { ... }
+
+      'md': { 'max': '767px' },
+      // => @media (max-width: 767px) { ... }
+
+      'sm': { 'max': '639px' },
+      // => @media (max-width: 639px) { ... }
+    },
     colors: {
       "dark-green": "#3A4E48",
       "light-green": "#6A7B76",
@@ -14,8 +30,8 @@ export default {
     },
     extend: {
       fontSize: {
-        titleClamp: "clamp(1rem, 4vw, 3rem)",
-        subtitleClamp: "clamp(12px, 1.34vw, 1rem)",
+        titleClamp: "clamp(1rem, 3.5vw, 4rem)",
+        subtitleClamp: "clamp(10px, 1.5vw, 1.7rem)",
         buttonClamp: "clamp(10px, 1.34vw, 1rem)"
       },
     },
