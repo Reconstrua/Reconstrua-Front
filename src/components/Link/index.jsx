@@ -1,8 +1,8 @@
 import PropTypes from "prop-types"
 
-export function Link({path, children}){
+export function Link({path, children, ...props}){
   return(
-    <a className="" href={path}>{children}</a>
+    <a {...props} className="hover:text-component-light" href={path}>{children}</a>
   )
 }
 

@@ -23,16 +23,16 @@ export default {
     colors: {
       "dark-green": "#3A4E48",
       "light-green": "#6A7B76",
-      "component-dark": "#FFEFD3",
-      "component-light": "#263238",
-      "dark-text": "#E9F2FC",
-      "light-text": "#ADB6C4",
+      "component-light": "#FFEFD3",
+      "component-dark": "#263238",
+      "light-text": "#E9F2FC",
+      "dark-text": "#ADB6C4",
     },
     extend: {
       fontSize: {
-        titleClamp: "clamp(1rem, 3.5vw, 4rem)",
-        subtitleClamp: "clamp(10px, 1.5vw, 1.7rem)",
-        buttonClamp: "clamp(10px, 1.34vw, 1rem)"
+        titleClamp: "clamp(1rem, 2.7vw, 3.5rem)",
+        subtitleClamp: "clamp(10px, 1.5vw, 1.5rem)",
+        
       },
     },
   },
