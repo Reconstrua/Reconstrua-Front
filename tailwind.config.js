@@ -32,7 +32,7 @@ export default {
       fontSize: {
         titleClamp: "clamp(1rem, 2.7vw, 3.5rem)",
         subtitleClamp: "clamp(10px, 1.5vw, 1.5rem)",
-        
+        profileTitleClamp: "clamp(1rem, 1.7vw, 3rem)",
       },
     },
   },
