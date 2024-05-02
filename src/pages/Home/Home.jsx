@@ -16,7 +16,7 @@ export function Home() {
   return (
     <>
       <Header/>
-      <section className="flex md:gap-[109px] bg-dark-green w-full h-screen md:flex-col md:h-auto">
+      <section className="flex md:gap-[50px] bg-dark-green w-full h-screen md:flex-col md:h-auto">
         <div className="w-[50%] md:mt-6 px-[5%]  py-10 h-full  md:items-center md:w-full flex flex-col justify-center items-end">
           <TextCard
             className="flex flex-col w-full gap-3 h-full justify-center items-start"
@@ -55,7 +55,7 @@ export function Home() {
           />
         </div>
       </section>
-      <section className="w-full h-screen flex bg-dark-green md:flex-col">
+      <section className="w-full h-screen flex bg-dark-green md:h-auto md:flex-col">
         <div className="w-[50%] h-full px-[5%] justify-center md:w-full py-10 md:items-center md:text  flex">
           <div className="justify-center w-full flex flex-col gap-4 ">
             <TextCard
@@ -92,7 +92,7 @@ export function Home() {
           </div>
 
         </div>
-        <div className="w-[50%] justify-end py-10 md:h-[50%] md:w-full flex ">
+        <div className="w-[50%] justify-end py-10 md:w-full flex ">
           <img className="w-[85%] " src={handImg} alt="" />
         </div>
       </section>

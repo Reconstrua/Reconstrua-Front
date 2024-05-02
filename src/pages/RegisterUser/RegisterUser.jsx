@@ -1,6 +1,6 @@
 import { DoubleInput } from "../../components/DoubleInput"
 import { LargeInput } from "../../components/LargeInput"
-import { NavBar } from "../../components/NavBar"
+import { Header } from "../../components/Header"
 import { SingleInput } from "../../components/SingleInput"
 import { TextCard } from "../../components/TextCard"
 import Mountain from "../../assets/mountain.svg"
@@ -9,10 +9,7 @@ import { Button } from "../../components/Button"
 export function RegisterUser() {
     return (
         <>
-            <header className="drop-shadow-lg sticky top-0 z-50 flex px-[5%]  w-full justify-center py-4 bg-slate-700 bg-dark-green gap-4 lg:flex-col items-center">
-                <NavBar />
-            </header>
-
+            <Header />
             <section className="w-full flex flex-row bg-dark-green gap-4">
                 <div className="w-1/2 h-full flex flex-col align-middle p-16">
                     <TextCard
