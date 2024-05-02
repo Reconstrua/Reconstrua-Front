@@ -7,7 +7,7 @@ export function TextCard({title, subtitle, titleClass, subtitleClass, buttonText
     <div {...props}>
       <h1 className={titleClass} >{title}</h1>
       <h4 className={subtitleClass}>{subtitle}</h4>
-      <Button disabled={disabled} dark={dark} buttonClass={buttonClass} >{buttonText}</Button>
+      <Button disabled={disabled} dark={dark} buttonClass={buttonClass}>{buttonText}</Button>
     </div>
   )
 }
@@ -20,6 +20,6 @@ TextCard.propTypes = {
   subtitleClass: PropTypes.string,
   buttonText: PropTypes.string,
   buttonClass: PropTypes.string,
-  dark: PropTypes.bool.isRequired,
+  dark: PropTypes.bool,
   disabled: PropTypes.bool.isRequired,
 }
