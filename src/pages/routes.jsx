@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes as ReactRoutes } from "react-router-dom"
 import { Home } from "./Home/Home"
 import { RegisterUser } from "./RegisterUser/RegisterUser"
+import { RegisterVoluntary } from "./RegisterVoluntary/RegisterVoluntary"
 
 export function Routes(){
   return(
@@ -8,6 +9,7 @@ export function Routes(){
       <ReactRoutes>
         <Route path="/" element={<Home/>}/>
         <Route path="/registerUser" element={<RegisterUser/>}/>
+        <Route path="/volunteers" element={<RegisterVoluntary/>}/>
       </ReactRoutes>
     </Router>
   )

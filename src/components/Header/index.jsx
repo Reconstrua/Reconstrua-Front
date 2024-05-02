@@ -53,7 +53,7 @@ export function Header() {
             className={({ isActive, isPending }) =>
               isPending ? "pending" : isActive ? "text-component-light" : "" + "hover:text-component-light hover:scale-105 transition-all duration-300 ease-in-out"
             }
-          >Para Empresas</NavLink>
+          >Empresas</NavLink>
         </div>
       </header>
     </>
