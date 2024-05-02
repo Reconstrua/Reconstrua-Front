@@ -10,7 +10,7 @@ import { ProfileCard } from "../../components/ProfileCard";
 import Paulo from "../../assets/img/Paulo.png"
 import Joao from "../../assets/img/Joao.png"
 import Oziel from "../../assets/img/Oziel.png"
-import reconstruaLogo from "../../assets/reconstrua.svg"
+import { Footer } from "../../components/Footer/Footer";
 
 export function Home() {
   return (
@@ -124,14 +124,7 @@ export function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="bg-dark-green flex flex-col items-center py-10">
-          <img className="w-44" src={reconstruaLogo} alt="" />
-          <hr className="my-8 border-component-light w-[85%]" />
-         <div>
-         <h1 className="font-light text-component-light">Copyright © 2024 Reconstrua</h1>
-          </div> 
-      </footer>
+      <Footer/>
     </>
   );
 }
