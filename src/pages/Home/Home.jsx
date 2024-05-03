@@ -10,7 +10,7 @@ import { ProfileCard } from "../../components/ProfileCard";
 import Paulo from "../../assets/img/Paulo.png"
 import Joao from "../../assets/img/Joao.png"
 import Oziel from "../../assets/img/Oziel.png"
-import reconstruaLogo from "../../assets/reconstrua.svg"
+import { Footer } from "../../components/Footer/Footer";
 
 export function Home() {
   return (
@@ -46,7 +46,7 @@ export function Home() {
             className="flex text-justify flex-col w-full gap-3 h-full justify-center items-start"
             title="Quem somos"
             titleClass="text-titleClamp md:text-3xl text-component-dark font-semibold"
-            subtitle="A Dream Home é mais do que uma organização, é um movimento impulsionado pela convicção de que todos merecem um lugar seguro para chamar de lar. Nós não apenas construímos casas, mas transformamos sonhos em realidades tangíveis, criando lares para pessoas em situação de vulnerabilidade social.
+            subtitle="A Reconstrua é mais do que uma organização, é um movimento impulsionado pela convicção de que todos merecem um lugar seguro para chamar de lar. Nós não apenas construímos casas, mas transformamos sonhos em realidades tangíveis, criando lares para pessoas em situação de vulnerabilidade social.
             Trabalhamos em estreita colaboração com comunidades de baixa renda, voluntários dedicados e doadores de materiais de construção para tornar o sonho da casa própria uma realidade."
             subtitleClass="text-subtitleClamp md:text-base text-light-text"
             buttonText="Faça uma doação"
@@ -124,14 +124,7 @@ export function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="bg-dark-green flex flex-col items-center py-10">
-          <img className="w-44" src={reconstruaLogo} alt="" />
-          <hr className="my-8 border-component-light w-[85%]" />
-         <div>
-         <h1 className="font-light text-component-light">Copyright © 2024 Reconstrua</h1>
-          </div> 
-      </footer>
+      <Footer/>
     </>
   );
 }
