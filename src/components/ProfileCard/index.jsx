@@ -7,7 +7,7 @@ export function ProfileCard({ profileImg, name, position, profileLink, ...props 
         <img {...props} className="w-full h-full " src={profileImg} />
       </a>
       <h1 className="text-profileTitleClamp font-semibold text-component-dark">{name}</h1>
-      <h1 className="text-subtitleClamp font-normal text-compone">{position}</h1>
+      <h1 className="text-subtitleClamp font-normal text-component-dark">{position}</h1>
     </div>
   )
 }
