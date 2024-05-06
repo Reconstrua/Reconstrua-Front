@@ -5,6 +5,7 @@ import donateMoney from "../../assets/donateMoney.svg"
 import donateFurniture from "../../assets/donateFurniture.svg"
 import partnership from "../../assets/partnership.svg"
 import { Footer } from "../../components/Footer/Footer"
+import {scrollToTop} from "../../utils/scrollToTop.js"
 
 export function Donation() {
   return (
@@ -17,8 +18,10 @@ export function Donation() {
             title="Transforme Sonhos em Realidade!"
             titleClass="text-titleClamp md:text-3xl text-component-light font-semibold"
             subtitle="Acreditamos que todos merecem um lugar seguro para chamar de lar. Mas não podemos fazer isso sozinhos. Sua doação pode transformar vidas, ajudando-nos a construir casas para aqueles em situação de vulnerabilidade social. Cada contribuição, não importa o tamanho, nos ajuda a conectar sonhos à realidade. Doe hoje e faça parte desta incrível jornada de transformação."
+            buttonLink="/volunteers"
             subtitleClass="text-subtitleClamp text-justify md:text-base text-light-text pr-[25%] md:p-0"
             buttonText="Quero Doar"
+            onClick={()=> scrollToTop()}
           />
         </div>
         <div className=" flex px-[5%]  py-10 items-center md:justify-center  h-full w-[50%] md:w-full">
@@ -36,7 +39,9 @@ export function Donation() {
             subtitle={<>Cada centavo conta, sua doação, de qualquer valor, ajuda a continuar nosso trabalho.</>}
             subtitleClass="text-subtitleClamp  md:text-base text-light-text"
             buttonText="Faça uma doação"
-            buttonClass="w-[] text-nowrap"
+            buttonClass="w-full text-nowrap"
+            buttonLink="/volunteers"
+            onClick={()=> scrollToTop()}
           />
           </div>
          <div>
@@ -49,6 +54,8 @@ export function Donation() {
             subtitleClass="text-subtitleClamp md:text-base text-light-text"
             buttonText="Doe móveis"
             buttonClass="w-full text-nowrap"
+            buttonLink="/volunteers"
+            onClick={()=> scrollToTop()}
           />
          </div>
         
@@ -63,6 +70,8 @@ export function Donation() {
             buttonText="Seja um parceiro"
             disabled={false}
             buttonClass="w-full text-nowrap"
+            buttonLink="/register/company"
+            onClick={()=> scrollToTop()}
           />
         </div>
         </div>

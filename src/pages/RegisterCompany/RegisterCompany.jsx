@@ -5,10 +5,11 @@ import { SingleInput } from "../../components/SingleInput"
 import { TextCard } from "../../components/TextCard"
 import Partner from "../../assets/partner.svg"
 import { Button } from "../../components/Button"
+import { Footer } from "../../components/Footer/Footer"
 
 export function RegisterCompany() {
     return (
-        <>
+        <>  
             <Header />
             <section className="w-full flex flex-row sm:flex-col bg-dark-green gap-4">
                 <div className="w-1/2 sm:w-full h-full flex flex-col align-middle p-16">
@@ -19,7 +20,7 @@ export function RegisterCompany() {
                         subtitle="Junte-se a nós na Reconstrua! Cada parceiro é essencial na construção de um futuro melhor. Seus recursos e comprometimento são fundamentais para transformar ideias em realidade, oferecendo oportunidades para quem mais precisa. Se você busca fazer a diferença, venha se juntar à nossa comunidade de parceiros comprometidos com a mudança."
                         subtitleClass="text-justify text-subtitleClamp md:text-base text-light-text"
                         disabled={true}
-                    />
+                        />
                     <img src={Partner} alt="" className="w-3/4 mx-0 sm:w-full mx-auto" />
                 </div>
 
@@ -33,10 +34,11 @@ export function RegisterCompany() {
                         <DoubleInput text1="Bairro" placeholder1="Digite o bairro da empresa" text2="Cidade" placeholder2="Digite a cidade da empresa" />
                         <DoubleInput text1="Estado" placeholder1="Digite seu estado" text2="Número" placeholder2="Digite o número" />
                         <LargeInput text="Conte-nos o que sua empresa faz:" />
-                        <Button >Enviar</Button>
+                        <Button buttonClass="w-full">Enviar</Button>
                     </div>
                 </form>
             </section >
+            <Footer/>
         </>
     )
 }

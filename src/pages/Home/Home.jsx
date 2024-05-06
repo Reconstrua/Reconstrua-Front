@@ -11,6 +11,7 @@ import Paulo from "../../assets/img/Paulo.png"
 import Joao from "../../assets/img/Joao.png"
 import Oziel from "../../assets/img/Oziel.png"
 import { Footer } from "../../components/Footer/Footer";
+import {scrollToTop} from "../../utils/scrollToTop.js"
 
 export function Home() {
   return (
@@ -24,8 +25,9 @@ export function Home() {
             titleClass="text-titleClamp md:text-3xl text-component-light font-semibold"
             subtitle="Ajudamos pessoas em situação de vulnerabilidade social a realizar o sonho de ter sua própria casa. Fazemos isso conectando voluntários, doadores de materiais de construção e famílias necessitadas. "
             subtitleClass="text-justify text-subtitleClamp md:text-base text-light-text pr-[25%] md:p-0"
-            buttonText="Faça uma doação"
-
+            buttonText="Torne-se um Voluntário "
+            buttonLink="/volunteers"
+            onClick={()=> scrollToTop()}
             disabled={false}
           />
         </div>
@@ -50,6 +52,8 @@ export function Home() {
             Trabalhamos em estreita colaboração com comunidades de baixa renda, voluntários dedicados e doadores de materiais de construção para tornar o sonho da casa própria uma realidade."
             subtitleClass="text-subtitleClamp md:text-base text-light-text"
             buttonText="Faça uma doação"
+            buttonLink="/volunteers"
+            onClick={()=> scrollToTop()}
             dark
             disabled={false}
           />

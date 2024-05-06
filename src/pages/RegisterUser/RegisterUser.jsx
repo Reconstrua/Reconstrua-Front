@@ -5,6 +5,7 @@ import { SingleInput } from "../../components/SingleInput"
 import { TextCard } from "../../components/TextCard"
 import Mountain from "../../assets/mountain.svg"
 import { Button } from "../../components/Button"
+import { Footer } from "../../components/Footer/Footer"
 
 export function RegisterUser() {
     return (
@@ -32,10 +33,11 @@ export function RegisterUser() {
                         <DoubleInput text1="Bairro" placeholder1="Digite seu bairro" text2="Cidade" placeholder2="Digite sua cidade" />
                         <DoubleInput text1="Estado" placeholder1="Digite seu estado" text2="Número" placeholder2="Digite o número da casa" />
                         <LargeInput text="Conte sua história" />
-                        <Button >Enviar</Button>
+                        <Button buttonClass="w-full">Enviar</Button>
                     </div>
                 </form>
             </section >
+            <Footer/>
         </>
     )
 }

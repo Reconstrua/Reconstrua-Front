@@ -5,6 +5,7 @@ import { SingleInput } from "../../components/SingleInput"
 import { TextCard } from "../../components/TextCard"
 import Builders from "../../assets/builders.svg"
 import { Button } from "../../components/Button"
+import { Footer } from "../../components/Footer/Footer"
 
 export function RegisterVoluntary() {
     return (
@@ -29,10 +30,11 @@ export function RegisterVoluntary() {
                         <SingleInput text="E-Mail" placeholder="Digite seu endereço de e-mail" />
                         <SingleInput text="Celular" placeholder="(XX) XXXXX-XXXX" />
                         <LargeInput text="Por que você quer ser um voluntário?" />
-                        <Button >Me tornar um voluntário</Button>
+                        <Button buttonClass="w-full" onClick={()=> console.log("Deu certo")} >Me tornar um voluntário</Button>
                     </div>
                 </form>
             </section >
+            <Footer/>
         </>
     )
 }
