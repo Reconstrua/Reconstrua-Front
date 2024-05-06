@@ -5,6 +5,7 @@ import { Donation } from "./Donation/Donation"
 import { RegisterVoluntary } from "./RegisterVoluntary/RegisterVoluntary"
 import { RegisterCompany } from "./RegisterCompany/RegisterCompany"
 import { LoginAdmin } from "./LoginAdmin/LoginAdmin"
+import { Dashboard } from "./AdminDashboard/Dashboard"
 
 export function Routes(){
   return(
@@ -16,6 +17,7 @@ export function Routes(){
         <Route path="/volunteers" element={<RegisterVoluntary/>}/>
         <Route path="/register/company" element={<RegisterCompany/>} />
         <Route path="/login/admin" element={<LoginAdmin/>} />
+        <Route path="/dashboard/admin" element={<Dashboard/>} />
       </ReactRoutes>
     </Router>
   )
