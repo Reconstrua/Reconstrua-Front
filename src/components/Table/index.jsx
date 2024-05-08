@@ -1,38 +1,120 @@
-import { FaEye } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdEdit } from "react-icons/md";
+import { AxiosAPI } from "../../AxiosConfig";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/pt-br";
 
-export function Table() {
-    return (
-        <table className="w-full text-sm text-left rtl:text-right text-dark-green bg-light-text rounded-md mt-2">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" className="px-6 py-3">
-                        ID
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                        Nome
-                    </th>
-                    <th scope="col" className="px-6 py-3 flex justify-center">
-                        Ações
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    a2b29031-2bc6-4942-95d6-1535e85b22f1
-                    </th>
-                    <td className="px-6 py-4">
-                        João
-                    </td>
-                    <td className="px-6 py-4 flex justify-center gap-8">
-                        <a href="#" className="text-2xl "><FaEye /></a>
-                        <a href="#" className="text-2xl "><MdEdit /></a>
-                        <a href="#" className="text-2xl "><MdDeleteForever /></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    )
+dayjs.extend(relativeTime);
+dayjs.locale("pt-br");
+
+const token = localStorage.getItem("jwtToken")
+
+export async function getVoluntaries(setData) {
+    try {
+        const response = await AxiosAPI.get("/voluntaries", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        setData(response.data.voluntaries)
+
+    } catch (error) {
+        console.log(error)
+    }
 }
+export async function getBeneficiaries(setData) {
+    try {
+        const response = await AxiosAPI.get("/beneficiaries", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        setData(response.data.beneficiaries)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+export async function getCompanies(setData) {
+    try {
+        const response = await AxiosAPI.get("/companies", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        setData(response.data.companies)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const DashTable = ({ data, dataType }) => {
+    const getColumnHeaders = () => {
+        // Crie um array vazio para armazenar os cabeçalhos das colunas
+        let headers = [];
+
+        // Adicione os cabeçalhos comuns a ambas as tabelas
+        headers.push("ID", "Nome");
+
+        // Se o tipo de dados for voluntários, adicione as colunas específicas dos voluntários
+        if (dataType === 'voluntaries') {
+            headers.push("Sobrenome", "Email", "Telefone", "Descrição", "Data de Registro", "Data de Atualização");
+            // Adicione mais colunas específicas dos voluntários conforme necessário
+        } else if (dataType === 'beneficiaries') {
+            headers.push("Sobrenome", "Email", "Telefone", "CEP", "Rua", "Bairro", "Cidade", "Estado", "Número do Endereço", "Descrição", "Data de Registro", "Data de Atualização");
+            // Adicione mais colunas específicas dos beneficiários conforme necessário
+        } else if (dataType === 'companies') {
+            headers.push("Email", "Telefone", "Site", "CEP", "Rua", "Bairro", "Cidade", "Estado", "Número do Endereço", "Descrição", "Data de Registro", "Data de Atualização");
+        }
+
+        // Retorne o array de cabeçalhos
+        return headers;
+    };
+
+    return (
+        <div className="overflow-x-auto rounded-[16px]">
+            <table className="table-auto w-full">
+                <thead>
+                    <tr className="bg-[#60817c] text-light-text">
+                        {/* Mapeie dinamicamente os cabeçalhos da coluna */}
+                        {getColumnHeaders().map((header, index) => (
+                            <th key={index} className="px-4 py-2">{header}</th>
+                        ))}
+                        {/* Adicione aqui a coluna de ações, se necessário */}
+                        <th className="px-4 py-2 w-[15%]">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* Renderize dinamicamente os dados da tabela */}
+                    {data.map((item) => (
+                        <tr className="bg-[#fdf7e8] text-component-dark" key={item.id}>
+                            {/* Renderize dinamicamente as células da tabela */}
+                            {Object.keys(item).map((key) => (
+                                <td key={key} className="border px-4 py-2">
+                                    {key === "createdAt" || key === "updatedAt" ? dayjs(item[key]).fromNow() : item[key]}
+                                </td>
+                            ))}
+                            <td className="border px-4 py-2 text-center">
+                                <div className="flex md:flex-col justify-center items-center gap-4 md:gap-2">
+                                    <button
+                                        onClick={() => editar(data.id)}
+                                    >
+                                        <MdEdit size="25px" className="md:w-5 h-full" />
+                                    </button>
+                                    <button
+                                        onClick={() => deletar(data.id)}
+                                    >
+                                        <MdDeleteForever size="25px" className="md:w-5" />
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+

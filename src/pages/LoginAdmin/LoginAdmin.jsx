@@ -3,8 +3,35 @@ import { TextCard } from "../../components/TextCard"
 import { MdAdminPanelSettings } from "react-icons/md";
 import {SingleInput} from "../../components/SingleInput"
 import { Button } from "../../components/Button";
+import {AxiosAPI} from "../../AxiosConfig"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"
+
 
 export function LoginAdmin() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+
+
+  async function loginAdm(){
+    try {
+      const response = await AxiosAPI.post("/admins/login",{
+        username: `${username}`,
+        password: `${password}`,
+      })
+      if (response.status === 200) {
+        const token = response.data.token
+        localStorage.setItem("jwtToken", token);
+        navigate("/dashboard/admin")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
+}
+
   return (
     <>
       <Header />
@@ -20,9 +47,9 @@ export function LoginAdmin() {
             subtitleClass="text-justify text-subtitleClamp md:text-base text-light-text"
             disabled
           />
-          <SingleInput text="Usuário ADM" placeholder="Digite um nome de usuário ADM" />
-          <SingleInput text="Senha" placeholder="Digite a senha" />
-          <Button buttonClass="h-12 ">Login</Button>
+          <SingleInput onChange={(e)=> setUsername(e.target.value)} text="Usuário ADM" placeholder="Digite um nome de usuário ADM" />
+          <SingleInput onChange={(e)=> setPassword(e.target.value)} text="Senha" placeholder="Digite a senha" />
+          <Button onClick={loginAdm} buttonClass="h-12 w-full">Login</Button>
         </div>
       </section>
     </>

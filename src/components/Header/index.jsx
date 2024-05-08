@@ -42,14 +42,14 @@ export function Header() {
           >Doe</NavLink>
           <NavLink
             onClick={scrollToTop}
-            to="/volunteers"
+            to="/register/volunteer"
             className={({ isActive, isPending }) =>
               isPending ? "pending" : isActive ? "text-component-light" : "" + "hover:text-component-light hover:scale-105 transition-all duration-300 ease-in-out"
             }
           >Voluntários</NavLink>
           <NavLink
             onClick={scrollToTop}
-            to="/register/user"
+            to="/register/beneficiary"
             className={({ isActive, isPending }) =>
               isPending ? "pending" : isActive ? "text-component-light" : "" + "hover:text-component-light hover:scale-105 transition-all duration-300 ease-in-out"
             }

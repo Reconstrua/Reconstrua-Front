@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes as ReactRoutes } from "react-router-dom"
 import { Home } from "./Home/Home"
-import { RegisterUser } from "./RegisterUser/RegisterUser"
+import { RegisterBeneficiary } from "./RegisterBeneficiary/RegisterBeneficiary"
 import { Donation } from "./Donation/Donation"
 import { RegisterVoluntary } from "./RegisterVoluntary/RegisterVoluntary"
 import { RegisterCompany } from "./RegisterCompany/RegisterCompany"
@@ -12,9 +12,9 @@ export function Routes(){
     <Router>
       <ReactRoutes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/register/user" element={<RegisterUser/>}/>
+        <Route path="/register/beneficiary" element={<RegisterBeneficiary/>}/>
         <Route path="/donation" element={<Donation/>}/>
-        <Route path="/volunteers" element={<RegisterVoluntary/>}/>
+        <Route path="/register/volunteer" element={<RegisterVoluntary/>}/>
         <Route path="/register/company" element={<RegisterCompany/>} />
         <Route path="/login/admin" element={<LoginAdmin/>} />
         <Route path="/dashboard/admin" element={<Dashboard/>} />
