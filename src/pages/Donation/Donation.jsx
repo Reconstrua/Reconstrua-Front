@@ -18,7 +18,7 @@ export function Donation() {
             title="Transforme Sonhos em Realidade!"
             titleClass="text-titleClamp md:text-3xl text-component-light font-semibold"
             subtitle="Acreditamos que todos merecem um lugar seguro para chamar de lar. Mas não podemos fazer isso sozinhos. Sua doação pode transformar vidas, ajudando-nos a construir casas para aqueles em situação de vulnerabilidade social. Cada contribuição, não importa o tamanho, nos ajuda a conectar sonhos à realidade. Doe hoje e faça parte desta incrível jornada de transformação."
-            buttonLink="/volunteers"
+            buttonLink="/register/volunteer"
             subtitleClass="text-subtitleClamp text-justify md:text-base text-light-text pr-[25%] md:p-0"
             buttonText="Quero Doar"
             onClick={()=> scrollToTop()}
@@ -40,7 +40,7 @@ export function Donation() {
             subtitleClass="text-subtitleClamp  md:text-base text-light-text"
             buttonText="Faça uma doação"
             buttonClass="w-full text-nowrap"
-            buttonLink="/volunteers"
+            buttonLink="/register/volunteer"
             onClick={()=> scrollToTop()}
           />
           </div>
@@ -54,7 +54,7 @@ export function Donation() {
             subtitleClass="text-subtitleClamp md:text-base text-light-text"
             buttonText="Doe móveis"
             buttonClass="w-full text-nowrap"
-            buttonLink="/volunteers"
+            buttonLink="/register/volunteer"
             onClick={()=> scrollToTop()}
           />
          </div>

@@ -6,8 +6,39 @@ import { TextCard } from "../../components/TextCard"
 import Builders from "../../assets/builders.svg"
 import { Button } from "../../components/Button"
 import { Footer } from "../../components/Footer/Footer"
+import { AxiosAPI } from "../../AxiosConfig"
+import { useState } from "react"
+import { toast } from 'react-toastify';
 
 export function RegisterVoluntary() {
+    const [firstName,setFirstName] = useState("")
+    const [lastName,setLastName] = useState("")
+    const [email,setEmail] = useState("")
+    const [phone,setPhone] = useState("")
+    const [description,setDescription] = useState("")
+
+    async function postVoluntary() {
+        try {
+            toast.promise(
+                AxiosAPI.post("/voluntaries", {
+                    first_name: `${firstName}`,
+                    last_name: `${lastName}`,
+                    email: `${email}`,
+                    phone: `${phone}`,
+                    description: `${description}`
+                }),
+                {
+                    pending: 'Enviando...',
+                    success: 'Enviado com Sucesso!',
+                    error: 'Erro ao enviar'
+                }
+            );
+        } catch (err) {
+            console.error(err);
+            toast.error('Erro ao enviar');
+        }
+    }
+
     return (
         <>
             <Header />
@@ -26,15 +57,15 @@ export function RegisterVoluntary() {
 
                 <form className="w-1/2 sm:w-full p-16">
                     <div className="grid gap-6 mb-6 ">
-                        <DoubleInput text1="Nome" placeholder1="Digite seu nome" text2="Sobrenome" placeholder2="Digite seu sobrenome" />
-                        <SingleInput text="E-Mail" placeholder="Digite seu endereço de e-mail" />
-                        <SingleInput text="Celular" placeholder="(XX) XXXXX-XXXX" />
-                        <LargeInput text="Por que você quer ser um voluntário?" />
-                        <Button buttonClass="w-full" onClick={()=> console.log("Deu certo")} >Me tornar um voluntário</Button>
+                        <DoubleInput onChangeHandleFirst={(e)=> setFirstName(e.target.value)} onChangeHandleSecond={(e)=> setLastName(e.target.value)} text1="Nome" placeholder1="Digite seu nome" text2="Sobrenome" placeholder2="Digite seu sobrenome" />
+                        <SingleInput onChange={(e)=> setEmail(e.target.value)} text="E-Mail" placeholder="Digite seu endereço de e-mail" />
+                        <SingleInput onChange={(e)=> setPhone(e.target.value)} text="Celular" placeholder="XX XXXXX-XXXX" />
+                        <LargeInput onChange={(e)=> setDescription(e.target.value)} text="Por que você quer ser um voluntário?" />
+                        <Button buttonClass="w-full" onClick={postVoluntary} >Me tornar um voluntário</Button>
                     </div>
                 </form>
             </section >
-            <Footer/>
+            <Footer />
         </>
     )
 }

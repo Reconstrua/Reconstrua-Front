@@ -15,12 +15,12 @@ export function TextCard({title, subtitle, titleClass, subtitleClass, buttonText
 
 TextCard.propTypes = {
   title: PropTypes.node.isRequired,
-  subtitle: PropTypes.node.isRequired,
+  subtitle: PropTypes.node,
   titleClass: PropTypes.string,
   subtitleClass: PropTypes.string,
   buttonText: PropTypes.string,
   buttonClass: PropTypes.string,
   buttonLink: PropTypes.string,
   dark: PropTypes.bool,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
 }
