@@ -1,56 +1,24 @@
 import { MdDeleteForever, MdEdit } from "react-icons/md";
-import { AxiosAPI } from "../../AxiosConfig";
+import {deleteData} from "../../utils/apiFunctions"
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/pt-br";
+import { useContext } from "react";
+import { ToggleModalContext } from "../../context/ToggleModalContext";
+import { NotFoundError } from "../NotFoundError";
+import "./index.css"
 
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
 
-const token = localStorage.getItem("jwtToken")
-
-export async function getVoluntaries(setData) {
-    try {
-        const response = await AxiosAPI.get("/voluntaries", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        setData(response.data.voluntaries)
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-export async function getBeneficiaries(setData) {
-    try {
-        const response = await AxiosAPI.get("/beneficiaries", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        setData(response.data.beneficiaries)
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-export async function getCompanies(setData) {
-    try {
-        const response = await AxiosAPI.get("/companies", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        setData(response.data.companies)
-
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 
-export const DashTable = ({ data, dataType }) => {
+export const DashTable = ({ data, dataType, setData }) => {
+    if (data.length === 0) {
+        return <NotFoundError/>;
+     }
+    const {toggleModal} = useContext(ToggleModalContext)
+
     const getColumnHeaders = () => {
         // Crie um array vazio para armazenar os cabeçalhos das colunas
         let headers = [];
@@ -89,22 +57,22 @@ export const DashTable = ({ data, dataType }) => {
                 <tbody>
                     {/* Renderize dinamicamente os dados da tabela */}
                     {data.map((item) => (
-                        <tr className="bg-[#fdf7e8] text-component-dark" key={item.id}>
+                        <tr className="bg-[#fdf7e8] text-component-dark " key={item.id}>
                             {/* Renderize dinamicamente as células da tabela */}
                             {Object.keys(item).map((key) => (
-                                <td key={key} className="border px-4 py-2">
+                                <td key={key} className={`border px-4 py-2 ${key === "description" ? "description-column" : "truncate"}`}>
                                     {key === "createdAt" || key === "updatedAt" ? dayjs(item[key]).fromNow() : item[key]}
                                 </td>
                             ))}
                             <td className="border px-4 py-2 text-center">
                                 <div className="flex md:flex-col justify-center items-center gap-4 md:gap-2">
                                     <button
-                                        onClick={() => editar(data.id)}
+                                        onClick={()=> toggleModal(dataType, item.id)}
                                     >
                                         <MdEdit size="25px" className="md:w-5 h-full" />
                                     </button>
                                     <button
-                                        onClick={() => deletar(data.id)}
+                                        onClick={() =>  deleteData(dataType,item.id, setData)}
                                     >
                                         <MdDeleteForever size="25px" className="md:w-5" />
                                     </button>

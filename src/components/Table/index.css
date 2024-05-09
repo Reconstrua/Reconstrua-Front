@@ -1,0 +1,4 @@
+.description-column {
+  min-width: 550px; /* Ajuste conforme necessário */
+  word-break: break-all;
+}
