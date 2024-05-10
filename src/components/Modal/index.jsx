@@ -54,18 +54,24 @@ export function Modal({ dataType, dataId }) {
 
   async function updateVoluntary(dataId) {
     try {
-      const response = await AxiosAPI.put(`/voluntaries/${dataId}`, {
-        first_name: `${voluntaryFirstName}`,
-        // last_name: `${voluntaryLastName}`,
-        // email: `${voluntaryEmail}`,
-        // phone: `${voluntaryPhone}`,
-        // description: `${voluntaryDescription}`
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      console.log(response)
+      toast.promise(
+        AxiosAPI.put(`/voluntaries/${dataId}`, {
+          first_name: `${voluntaryFirstName}`,
+          last_name: `${voluntaryLastName}`,
+          email: `${voluntaryEmail}`,
+          phone: `${voluntaryPhone}`,
+          description: `${voluntaryDescription}`,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+        {
+          pending: 'Enviando...',
+          success: 'Enviado com Sucesso!',
+          error: 'Erro ao enviar'
+        }
+      );
     } catch (err) {
       console.error(err);
     }
@@ -98,7 +104,6 @@ export function Modal({ dataType, dataId }) {
       );
     } catch (err) {
       console.error(err);
-      toast.error('Erro ao enviar');
     }
   }
   async function updateCompany(dataId) {
@@ -133,11 +138,6 @@ export function Modal({ dataType, dataId }) {
     }
   }
 
-
-
-
-
-
   useEffect(() => {
     console.log(dataId)
     if (isOpen == true) {
@@ -163,7 +163,7 @@ export function Modal({ dataType, dataId }) {
                 <SingleInput onChange={(e) => setVoluntaryEmail(e.target.value)} text="E-Mail" placeholder={data.email} />
                 <SingleInput onChange={(e) => setVoluntaryPhone(e.target.value)} text="Celular" placeholder={data.phone} />
                 <LargeInput onChange={(e) => setVoluntaryDescription(e.target.value)} text="Por que você quer ser um voluntário?" />
-                <Button onClick={updateVoluntary} buttonClass="w-full"  >Salvar</Button>
+                <Button onClick={() => updateVoluntary(dataId)} buttonClass="w-full">Salvar</Button>
               </>}
             {dataType == "beneficiaries" &&
               <>
@@ -174,7 +174,7 @@ export function Modal({ dataType, dataId }) {
                 <DoubleInput onChangeHandleFirst={(e) => setBeneficiaryNeighborhood(e.target.value)} onChangeHandleSecond={(e) => setBeneficiaryCity(e.target.value)} text1="Bairro" placeholder1={data.neighborhood} text2="Cidade" placeholder2={data.city} />
                 <DoubleInput onChangeHandleFirst={(e) => setBeneficiaryState(e.target.value)} onChangeHandleSecond={(e) => setBeneficiaryAddressNumber(e.target.value)} text1="Estado" placeholder1={data.state} text2="Número" placeholder2={data.address_number} />
                 <LargeInput onChange={(e) => setBeneficiaryDescription(e.target.value)} text="Conte sua história" />
-                <Button onClick={updateBeneficiary} buttonClass="w-full">Enviar</Button>
+                <Button onClick={() => updateBeneficiary(dataId)} buttonClass="w-full">Enviar</Button>
               </>}
             {dataType == "companies" &&
               <>
@@ -186,7 +186,7 @@ export function Modal({ dataType, dataId }) {
                 <DoubleInput onChangeHandleFirst={(e) => setCompanyNeighborhood(e.target.value)} onChangeHandleSecond={(e) => setCompanyCity(e.target.value)} text1="Bairro" placeholder1={data.neighborhood} text2="Cidade" placeholder2={data.city} />
                 <DoubleInput onChangeHandleFirst={(e) => setCompanyState(e.target.value)} onChangeHandleSecond={(e) => setCompanyAddressNumber(e.target.value)} text1="Estado" placeholder1={data.state} text2="Número" placeholder2={data.address_number} />
                 <LargeInput onChange={(e) => setCompanyDescription(e.target.value)} text="Conte-nos o que sua empresa faz:" />
-                <Button onClick={updateCompany} buttonClass="w-full">Enviar</Button>
+                <Button onClick={() => updateCompany(dataId)} buttonClass="w-full">Enviar</Button>
               </>}
           </div>
         </div>
