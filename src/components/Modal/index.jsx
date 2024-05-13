@@ -5,14 +5,9 @@ import { LargeInput } from "../LargeInput";
 import { Button } from "../Button";
 import { useContext, useEffect, useState } from "react";
 import { ToggleModalContext } from "../../context/ToggleModalContext";
-import { getDataById } from "../../utils/apiFunctions";
-import { toast } from 'react-toastify';
-import { AxiosAPI } from "../../AxiosConfig"
-
-
+import { getDataById, updateData } from "../../utils/apiFunctions";
 
 export function Modal({ dataType, dataId }) {
-  const token = localStorage.getItem("jwtToken")
   const { isOpen, toggleModal } = useContext(ToggleModalContext)
   const [data, setData] = useState([])
 
@@ -30,6 +25,20 @@ export function Modal({ dataType, dataId }) {
   const [beneficiaryAddressNumber, setBeneficiaryAddressNumber] = useState("")
   const [beneficiaryDescription, setBeneficiaryDescription] = useState("")
 
+  const beneficiaryData = {
+    first_name: beneficiaryFirstName,
+    last_name: beneficiaryLastName,
+    email: beneficiaryEmail,
+    phone: beneficiaryPhone,
+    cep: beneficiaryCep,
+    street: beneficiaryStreet,
+    neighborhood: beneficiaryNeighborhood,
+    city: beneficiaryCity,
+    state: beneficiaryState,
+    address_number: beneficiaryAddressNumber,
+    description: beneficiaryDescription
+  };
+
   //Voluntaries
 
   const [voluntaryFirstName, setVoluntaryFirstName] = useState("")
@@ -37,6 +46,14 @@ export function Modal({ dataType, dataId }) {
   const [voluntaryEmail, setVoluntaryEmail] = useState("")
   const [voluntaryPhone, setVoluntaryPhone] = useState("")
   const [voluntaryDescription, setVoluntaryDescription] = useState("")
+
+  const voluntaryData = {
+    first_name: voluntaryFirstName,
+    last_name: voluntaryLastName,
+    email: voluntaryEmail,
+    phone: voluntaryPhone,
+    description: voluntaryDescription
+  };
 
   //Companies
 
@@ -52,89 +69,37 @@ export function Modal({ dataType, dataId }) {
   const [companyAddressNumber, setCompanyAddressNumber] = useState("")
   const [companyDescription, setCompanyDescription] = useState("")
 
-  async function updateVoluntary(dataId) {
-    try {
-      toast.promise(
-        AxiosAPI.put(`/voluntaries/${dataId}`, {
-          first_name: `${voluntaryFirstName}`,
-          last_name: `${voluntaryLastName}`,
-          email: `${voluntaryEmail}`,
-          phone: `${voluntaryPhone}`,
-          description: `${voluntaryDescription}`,
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-        {
-          pending: 'Enviando...',
-          success: 'Enviado com Sucesso!',
-          error: 'Erro ao enviar'
-        }
-      );
-    } catch (err) {
-      console.error(err);
-    }
-  }
-  async function updateBeneficiary(dataId) {
-    try {
-      toast.promise(
-        AxiosAPI.put(`/beneficiaries/${dataId}`, {
-          first_name: `${beneficiaryFirstName}`,
-          last_name: `${beneficiaryLastName}`,
-          email: `${beneficiaryEmail}`,
-          phone: `${beneficiaryPhone}`,
-          cep: `${beneficiaryCep}`,
-          street: `${beneficiaryStreet}`,
-          neighborhood: `${beneficiaryNeighborhood}`,
-          city: `${beneficiaryCity}`,
-          state: `${beneficiaryState}`,
-          address_number: `${beneficiaryAddressNumber}`,
-          description: `${beneficiaryDescription}`
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-        {
-          pending: 'Enviando...',
-          success: 'Enviado com Sucesso!',
-          error: 'Erro ao enviar'
-        }
-      );
-    } catch (err) {
-      console.error(err);
-    }
-  }
-  async function updateCompany(dataId) {
-    try {
-      toast.promise(
-        AxiosAPI.put(`/companies/${dataId}`, {
-          company_name: `${companyName}`,
-          email: `${companyEmail}`,
-          phone: `${companyPhone}`,
-          website: `${companyWebsite}`,
-          cep: `${companyCep}`,
-          street: `${companyStreet}`,
-          neighborhood: `${companyNeighborhood}`,
-          city: `${companyCity}`,
-          state: `${companyState}`,
-          address_number: `${companyAddressNumber}`,
-          description: `${companyDescription}`
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-        {
-          pending: 'Enviando...',
-          success: 'Enviado com Sucesso!',
-          error: 'Erro ao enviar'
-        }
-      );
-    } catch (err) {
-      console.error(err);
-      toast.error('Erro ao enviar');
+
+  const companyData = {
+    company_name: companyName,
+    email: companyEmail,
+    phone: companyPhone,
+    website: companyWebsite,
+    cep: companyCep,
+    street: companyStreet,
+    neighborhood: companyNeighborhood,
+    city: companyCity,
+    state: companyState,
+    address_number: companyAddressNumber,
+    description: companyDescription
+  };
+  function putNewData() {
+    switch (dataType) {
+      case "voluntaries":
+        updateData(dataType, dataId, voluntaryData)
+        console.log("ok")
+        break;
+      case "beneficiaries":
+        updateData(dataType, dataId, beneficiaryData)
+        console.log("ok")
+        break;
+      case "companies":
+        updateData(dataType, dataId, companyData)
+        console.log("ok")
+        break;
+      default:
+        console.log("Error")
+        break;
     }
   }
 
@@ -147,7 +112,6 @@ export function Modal({ dataType, dataId }) {
     }
   }, [isOpen]);
 
-
   return (
     <>
       <div className={`bg-dark-green flex items-center justify-center fixed bg-opacity-5 backdrop-filter backdrop-blur-[6px] z-50 h-screen w-full transition-opacity duration-300 ${isOpen == false ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
@@ -157,13 +121,14 @@ export function Modal({ dataType, dataId }) {
           </div>
           <div>
 
+
             {dataType == "voluntaries" &&
               <>
                 <DoubleInput onChangeHandleFirst={(e) => setVoluntaryFirstName(e.target.value)} onChangeHandleSecond={(e) => setVoluntaryLastName(e.target.value)} text1="Nome" placeholder1={data.first_name} text2="Sobrenome" placeholder2={data.last_name} />
                 <SingleInput onChange={(e) => setVoluntaryEmail(e.target.value)} text="E-Mail" placeholder={data.email} />
                 <SingleInput onChange={(e) => setVoluntaryPhone(e.target.value)} text="Celular" placeholder={data.phone} />
                 <LargeInput onChange={(e) => setVoluntaryDescription(e.target.value)} text="Por que você quer ser um voluntário?" />
-                <Button onClick={() => updateVoluntary(dataId)} buttonClass="w-full">Salvar</Button>
+                <Button onClick={() => putNewData()} buttonClass="w-full">Salvar</Button>
               </>}
             {dataType == "beneficiaries" &&
               <>
@@ -174,7 +139,7 @@ export function Modal({ dataType, dataId }) {
                 <DoubleInput onChangeHandleFirst={(e) => setBeneficiaryNeighborhood(e.target.value)} onChangeHandleSecond={(e) => setBeneficiaryCity(e.target.value)} text1="Bairro" placeholder1={data.neighborhood} text2="Cidade" placeholder2={data.city} />
                 <DoubleInput onChangeHandleFirst={(e) => setBeneficiaryState(e.target.value)} onChangeHandleSecond={(e) => setBeneficiaryAddressNumber(e.target.value)} text1="Estado" placeholder1={data.state} text2="Número" placeholder2={data.address_number} />
                 <LargeInput onChange={(e) => setBeneficiaryDescription(e.target.value)} text="Conte sua história" />
-                <Button onClick={() => updateBeneficiary(dataId)} buttonClass="w-full">Enviar</Button>
+                <Button onClick={() => putNewData()} buttonClass="w-full">Enviar</Button>
               </>}
             {dataType == "companies" &&
               <>
@@ -186,7 +151,7 @@ export function Modal({ dataType, dataId }) {
                 <DoubleInput onChangeHandleFirst={(e) => setCompanyNeighborhood(e.target.value)} onChangeHandleSecond={(e) => setCompanyCity(e.target.value)} text1="Bairro" placeholder1={data.neighborhood} text2="Cidade" placeholder2={data.city} />
                 <DoubleInput onChangeHandleFirst={(e) => setCompanyState(e.target.value)} onChangeHandleSecond={(e) => setCompanyAddressNumber(e.target.value)} text1="Estado" placeholder1={data.state} text2="Número" placeholder2={data.address_number} />
                 <LargeInput onChange={(e) => setCompanyDescription(e.target.value)} text="Conte-nos o que sua empresa faz:" />
-                <Button onClick={() => updateCompany(dataId)} buttonClass="w-full">Enviar</Button>
+                <Button onClick={() => putNewData()} buttonClass="w-full">Enviar</Button>
               </>}
           </div>
         </div>
