@@ -5,9 +5,13 @@ import { DashTable } from "../../components/Table"
 import { TextCard } from "../../components/TextCard"
 import { getBeneficiaries, getCompanies, getVoluntaries } from "../../utils/apiFunctions.js"
 import { useState } from "react";
-import { ToggleModalProvider } from "../../context/ToggleModalContext.jsx";
+import { ToggleModalProvider } from "../../contexts/ToggleModalContext.jsx";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext.jsx"
+
 
 export function Dashboard() {
+    const { logoutAdm } = useContext(AuthContext)
     const [data, setData] = useState([]);
     const [dataType, setDataType] = useState('voluntaries'); // Inicialmente, exibir dados de voluntários
 
@@ -50,6 +54,9 @@ export function Dashboard() {
                         </div>
                     </div>
                     <DashTable data={data} dataType={dataType} setData={setData} />
+                    <div className="gap-2 flex lg:flex-wrap justify-end">
+                        <Button onClick={logoutAdm} link="/" buttonClass="mt-0 py-2 px-2">Logout</Button>
+                    </div>
                 </div>
             </ToggleModalProvider>
         </>

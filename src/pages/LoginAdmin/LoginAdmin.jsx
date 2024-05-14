@@ -1,36 +1,19 @@
 import { Header } from "../../components/Header"
 import { TextCard } from "../../components/TextCard"
 import { MdAdminPanelSettings } from "react-icons/md";
-import {SingleInput} from "../../components/SingleInput"
 import { Button } from "../../components/Button";
-import {AxiosAPI} from "../../AxiosConfig"
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useForm } from "react-hook-form"
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 
 export function LoginAdmin() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const { register, handleSubmit, formState:{errors} } = useForm()
+  const {loginAdm} = useContext(AuthContext)
 
+  const onSubmit = (data) => loginAdm(data)
 
-
-  async function loginAdm(){
-    try {
-      const response = await AxiosAPI.post("/admins/login",{
-        username: `${username}`,
-        password: `${password}`,
-      })
-      if (response.status === 200) {
-        const token = response.data.token
-        localStorage.setItem("jwtToken", token);
-        navigate("/dashboard/admin")
-      }
-    } catch (error) {
-      console.log(error)
-    }
-    
-}
+  
 
   return (
     <>
@@ -40,16 +23,23 @@ export function LoginAdmin() {
           <MdAdminPanelSettings size="100%" className="text-component-light" />
         </div>
         <div className="w-[50%] md:mt-6 px-[10%] gap-6 py-10 h-full  md:items-center md:w-full flex flex-col justify-center">
-          <TextCard 
+          <TextCard
             title="Para Adm’s"
             titleClass="text-titleClamp md:text-3xl text-component-light font-semibold"
             subtitle="Área somente para Adm’s cadastrados! Quer se tornar um Adm? Fale com a nossa equipe!"
             subtitleClass="text-justify text-subtitleClamp md:text-base text-light-text"
             disabled
           />
-          <SingleInput onChange={(e)=> setUsername(e.target.value)} text="Usuário ADM" placeholder="Digite um nome de usuário ADM" />
-          <SingleInput onChange={(e)=> setPassword(e.target.value)} text="Senha" placeholder="Digite a senha" />
-          <Button onClick={loginAdm} buttonClass="h-12 w-full">Login</Button>
+          <form className="w-full">
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Usuário ADMIN</label>
+            <input {...register("username", {required: "Este campo é obrigatório"})} autoComplete="off" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" />
+            {errors?.username && <p className="text-[#ff1e1e]">{errors.username.message}</p>}
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Senha</label>
+            <input {...register("password", {required: "Este campo é obrigatório"})} autoComplete="off" type="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" />
+            {errors?.password && <p className="text-[#ff1e1e]">{errors.password.message}</p>}
+            <Button onClick={handleSubmit(onSubmit)} buttonClass="h-12 w-full">Login</Button>
+          </form>
+
         </div>
       </section>
     </>

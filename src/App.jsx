@@ -1,12 +1,12 @@
-import { Routes } from "./pages/routes"
-import { ToastContainer} from 'react-toastify';
+import { Routes } from "./pages/routes/routes"
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export function App() {
-  return(
+  return (
     <>
-    <ToastContainer/>
-    <Routes />
+      <ToastContainer />
+      <Routes />
     </>
-  ) 
+  )
 }
