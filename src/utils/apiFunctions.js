@@ -172,3 +172,26 @@ export async function updateData(selectedTable, dataId, newData) {
     console.log(error);
   }
 }
+
+export async function postData(selectedTable, data) {
+  try {
+    let response; //Variavel que é atualizada de acordo com o valor do selectedTable
+    switch (selectedTable) {
+      case "voluntaries":
+        response = await AxiosAPI.post(`/voluntaries`, data);
+        break;
+      case "beneficiaries":
+        response = await AxiosAPI.post(`/beneficiaries`, data);
+        break;
+      case "companies":
+        response = await AxiosAPI.post(`/companies`, data);
+        break;
+      default:
+        console.log("selectedTable possui um valor inválido")
+        break;
+    }
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
