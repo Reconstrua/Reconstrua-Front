@@ -55,7 +55,7 @@ export function Dashboard() {
                     </div>
                     <DashTable data={data} dataType={dataType} setData={setData} />
                     <div className="gap-2 flex lg:flex-wrap justify-end">
-                        <Button onClick={logoutAdm} link="/login/admin" buttonClass="mt-0 py-2 px-2">Logout</Button>
+                        <Button onClick={logoutAdm} link="/" buttonClass="mt-0 py-2 px-2">Logout</Button>
                     </div>
                 </div>
             </ToggleModalProvider>
