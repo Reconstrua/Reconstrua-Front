@@ -102,9 +102,6 @@ export async function deleteData(dataType, dataId, setData) {
         break;
     }
 
-    // setTimeout(function() {
-    //     location.reload();
-    // }, 6000);
   } catch (error) {
     console.log(error)
   }
@@ -125,6 +122,7 @@ export async function getDataById(dataType, dataId, setData) {
         if (dataType === "voluntaries") {
           setData(response.data.voluntary)
 
+
         } else if (dataType === "beneficiaries") {
           setData(response.data.beneficiary)
         } else if (dataType === "companies") {
@@ -139,3 +137,61 @@ export async function getDataById(dataType, dataId, setData) {
   }
 }
 
+
+export async function updateData(selectedTable, dataId, newData) {
+  try {
+    let response; //Variavel que é atualizada de acordo com o valor do selectedTable
+    switch (selectedTable) {
+      case "voluntaries":
+        response = await AxiosAPI.put(`/voluntaries/${dataId}`, newData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        break;
+      case "beneficiaries":
+        response = await AxiosAPI.put(`/beneficiaries/${dataId}`, newData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        break;
+      case "companies":
+        response = await AxiosAPI.put(`/companies/${dataId}`, newData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        break;
+      default:
+        console.log("selectedTable possui um valor inválido")
+        break;
+    }
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function postData(selectedTable, data) {
+  try {
+    let response; //Variavel que é atualizada de acordo com o valor do selectedTable
+    switch (selectedTable) {
+      case "voluntaries":
+        response = await AxiosAPI.post(`/voluntaries`, data);
+        break;
+      case "beneficiaries":
+        response = await AxiosAPI.post(`/beneficiaries`, data);
+        break;
+      case "companies":
+        response = await AxiosAPI.post(`/companies`, data);
+        break;
+      default:
+        console.log("selectedTable possui um valor inválido")
+        break;
+    }
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}

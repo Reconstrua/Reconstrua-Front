@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/pt-br";
 import { useContext } from "react";
-import { ToggleModalContext } from "../../context/ToggleModalContext";
+import { ToggleModalContext } from "../../contexts/ToggleModalContext";
 import { NotFoundError } from "../NotFoundError";
 import "./index.css"
 
