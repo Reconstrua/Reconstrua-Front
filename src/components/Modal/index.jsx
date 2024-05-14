@@ -4,7 +4,7 @@ import { DoubleInput } from "../DoubleInput";
 import { LargeInput } from "../LargeInput";
 import { Button } from "../Button";
 import { useContext, useEffect, useState } from "react";
-import { ToggleModalContext } from "../../context/ToggleModalContext";
+import { ToggleModalContext } from "../../contexts/ToggleModalContext";
 import { getDataById, updateData } from "../../utils/apiFunctions";
 
 export function Modal({ dataType, dataId }) {
