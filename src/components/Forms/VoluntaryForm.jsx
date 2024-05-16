@@ -1,14 +1,41 @@
 import { useForm } from "react-hook-form"
-import { postData, updateData } from "../../utils/apiFunctions";
+import { getDataById, postData, updateData } from "../../utils/apiFunctions";
 import { Button } from "../Button";
+import { useContext, useEffect } from "react";
+import { ToggleModalContext } from "../../contexts/ToggleModalContext";
 
 export function VoluntaryForm({ method, id }) {
+
+    const {isOpen} = useContext(ToggleModalContext)
+
+    
+    
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors }
     } = useForm();
-
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            if (isOpen && method === 'put' && id) {
+                try {
+                    const data = await getDataById("voluntaries", id);
+                    setValue("first_name", data.first_name);
+                    setValue("last_name", data.last_name);
+                    setValue("email", data.email);
+                    setValue("phone", data.phone);
+                    setValue("description", data.description);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        };
+        
+        fetchData();
+    }, [isOpen, method, id, setValue]);
+    
     let onSubmit;
 
     switch (method) {

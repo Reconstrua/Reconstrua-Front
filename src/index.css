@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset;
+    -webkit-box-shadow: 0 0 0px 1000px #6A7B76 inset;
+    -webkit-text-fill-color: #FFEFD3 !important;
+  }
+}
+
+
 *{
   font-family: Poppins;
 }

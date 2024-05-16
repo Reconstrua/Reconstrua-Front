@@ -4,7 +4,7 @@ import { AxiosAPI } from "../AxiosConfig"
 
 const token = localStorage.getItem("jwtToken")
 
-export async function getVoluntaries(setData) {
+export async function getVoluntaries() {
   try {
     const response = await AxiosAPI.get("/voluntaries", {
       headers: {
@@ -13,7 +13,7 @@ export async function getVoluntaries(setData) {
     })
     switch (response.status) {
       case 200:
-        setData(response.data.voluntaries)
+        return response.data.voluntaries
         break;
       default:
         break;
@@ -21,13 +21,13 @@ export async function getVoluntaries(setData) {
 
   } catch (error) {
     if (error.message.includes("404")) {
-      setData([])
+
     } else {
       console.log(error)
     }
   }
 }
-export async function getBeneficiaries(setData) {
+export async function getBeneficiaries() {
   try {
     const response = await AxiosAPI.get("/beneficiaries", {
       headers: {
@@ -36,7 +36,7 @@ export async function getBeneficiaries(setData) {
     })
     switch (response.status) {
       case 200:
-        setData(response.data.beneficiaries)
+        return response.data.beneficiaries
         break;
       default:
         break;
@@ -50,7 +50,7 @@ export async function getBeneficiaries(setData) {
     }
   }
 }
-export async function getCompanies(setData) {
+export async function getCompanies() {
   try {
     const response = await AxiosAPI.get("/companies", {
       headers: {
@@ -59,7 +59,7 @@ export async function getCompanies(setData) {
     })
     switch (response.status) {
       case 200:
-        setData(response.data.companies)
+        return response.data.companies
         break;
       default:
         break;
@@ -73,10 +73,10 @@ export async function getCompanies(setData) {
     }
   }
 }
-export async function deleteData(dataType, dataId, setData) {
+export async function deleteData(selectedTable, id) {
   try {
     await toast.promise(
-      AxiosAPI.delete(`/${dataType}/${dataId}`, {
+      AxiosAPI.delete(`/${selectedTable}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -86,16 +86,15 @@ export async function deleteData(dataType, dataId, setData) {
       error: 'Erro ao excluir!'
     })
 
-    switch (dataType) {
+    switch (selectedTable) {
       case "voluntaries":
-        await getVoluntaries(setData)
-        console.log("Get do DeleteData")
+        getVoluntaries()
         break;
       case "beneficiaries":
-        await getBeneficiaries(setData)
+        await getBeneficiaries()
         break;
       case "companies":
-        await getCompanies(setData)
+        await getCompanies()
         break;
       default:
         location.reload()
@@ -108,25 +107,21 @@ export async function deleteData(dataType, dataId, setData) {
 }
 
 
-export async function getDataById(dataType, dataId, setData) {
+export async function getDataById(selectedTable, id) {
   try {
-    console.log(`/${dataType}/${dataId}`)
-    const response = await AxiosAPI.get(`/${dataType}/${dataId}`, {
+    const response = await AxiosAPI.get(`/${selectedTable}/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
     })
     switch (response.status) {
       case 200:
-        console.log(`${response.data.voluntary}`)
-        if (dataType === "voluntaries") {
-          setData(response.data.voluntary)
-
-
-        } else if (dataType === "beneficiaries") {
-          setData(response.data.beneficiary)
-        } else if (dataType === "companies") {
-          setData(response.data.company)
+        if (selectedTable === "voluntaries") {
+          return(response.data.voluntary)
+        } else if (selectedTable === "beneficiaries") {
+          return(response.data.beneficiary)
+        } else if (selectedTable === "companies") {
+          return(response.data.company)
         }
         break;
       default:
@@ -140,7 +135,7 @@ export async function getDataById(dataType, dataId, setData) {
 
 export async function updateData(selectedTable, dataId, newData) {
   try {
-    let response; //Variavel que é atualizada de acordo com o valor do selectedTable
+    let response; 
     switch (selectedTable) {
       case "voluntaries":
         response = await AxiosAPI.put(`/voluntaries/${dataId}`, newData, {
@@ -175,7 +170,7 @@ export async function updateData(selectedTable, dataId, newData) {
 
 export async function postData(selectedTable, data) {
   try {
-    let response; //Variavel que é atualizada de acordo com o valor do selectedTable
+    let response; 
     switch (selectedTable) {
       case "voluntaries":
         response = await AxiosAPI.post(`/voluntaries`, data);

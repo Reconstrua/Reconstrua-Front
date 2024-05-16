@@ -8,7 +8,6 @@ import { LoginAdmin } from "../LoginAdmin/LoginAdmin"
 import { Dashboard } from "../AdminDashboard/Dashboard"
 import { AuthProvider } from "../../contexts/AuthContext"
 import { PrivateRoute } from "../routes/privateRoute"
-import {redirect} from "react-router-dom"
 
 
 export function Routes() {

@@ -1,11 +1,15 @@
 import { useForm } from "react-hook-form"
-import { postData, updateData } from "../../utils/apiFunctions";
+import { getDataById, postData, updateData } from "../../utils/apiFunctions";
 import { Button } from "../Button";
-
+import { ToggleModalContext } from "../../contexts/ToggleModalContext";
+import { useContext, useEffect } from "react";
 export function BeneficiaryForm({ method, id }) {
+    const { isOpen } = useContext(ToggleModalContext)
+
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors }
     } = useForm();
 
@@ -20,9 +24,34 @@ export function BeneficiaryForm({ method, id }) {
             break
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            if (isOpen && method === 'put' && id) {
+                try {
+                    const data = await getDataById("beneficiaries", id);
+                    setValue("first_name", data.first_name);
+                    setValue("last_name", data.last_name);
+                    setValue("email", data.email);
+                    setValue("phone", data.phone);
+                    setValue("cep", data.cep);
+                    setValue("street", data.street);
+                    setValue("neighborhood", data.neighborhood);
+                    setValue("city", data.city)
+                    setValue("state", data.state)
+                    setValue("address_number", data.address_number)
+                    setValue("description", data.description)
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        };
+        
+        fetchData();
+    }, [isOpen, method, id, setValue]);
+
     return (
 
-        <div className="grid gap-6 mb-6 w-1/2 p-16 sm:w-full">
+        <div className={method === "post" ? "grid gap-6 mb-6 w-1/2 p-16 sm:w-full" : "grid gap-6 mb-6 p-16 w-full"}>
             <div className="flex flex-col w-full gap-6">
                 <div className="flex gap-8">
                     <div className="w-1/2">

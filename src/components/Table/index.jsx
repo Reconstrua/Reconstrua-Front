@@ -5,6 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/pt-br";
 import { useContext } from "react";
 import { ToggleModalContext } from "../../contexts/ToggleModalContext";
+import { SelectedTableContext } from "../../contexts/SelectedTableContext";
 import { NotFoundError } from "../NotFoundError";
 import "./index.css"
 
@@ -13,11 +14,12 @@ dayjs.locale("pt-br");
 
 
 
-export const DashTable = ({ data, dataType, setData }) => {
+export const DashTable = ({ data}) => {
+    const {toggleModal, setId} = useContext(ToggleModalContext)
+    const {selectedTable} = useContext(SelectedTableContext)
     if (data.length === 0) {
         return <NotFoundError/>;
      }
-    const {toggleModal} = useContext(ToggleModalContext)
 
     const getColumnHeaders = () => {
         // Crie um array vazio para armazenar os cabeçalhos das colunas
@@ -27,13 +29,13 @@ export const DashTable = ({ data, dataType, setData }) => {
         headers.push("ID", "Nome");
 
         // Se o tipo de dados for voluntários, adicione as colunas específicas dos voluntários
-        if (dataType === 'voluntaries') {
+        if (selectedTable === 'voluntaries') {
             headers.push("Sobrenome", "Email", "Telefone", "Descrição", "Data de Registro", "Data de Atualização");
             // Adicione mais colunas específicas dos voluntários conforme necessário
-        } else if (dataType === 'beneficiaries') {
+        } else if (selectedTable === 'beneficiaries') {
             headers.push("Sobrenome", "Email", "Telefone", "CEP", "Rua", "Bairro", "Cidade", "Estado", "Número do Endereço", "Descrição", "Data de Registro", "Data de Atualização");
             // Adicione mais colunas específicas dos beneficiários conforme necessário
-        } else if (dataType === 'companies') {
+        } else if (selectedTable === 'companies') {
             headers.push("Email", "Telefone", "Site", "CEP", "Rua", "Bairro", "Cidade", "Estado", "Número do Endereço", "Descrição", "Data de Registro", "Data de Atualização");
         }
 
@@ -67,12 +69,15 @@ export const DashTable = ({ data, dataType, setData }) => {
                             <td className="border px-4 py-2 text-center">
                                 <div className="flex md:flex-col justify-center items-center gap-4 md:gap-2">
                                     <button
-                                        onClick={()=> toggleModal(dataType, item.id)}
+                                        onClick={()=>{
+                                            toggleModal()
+                                            setId(item.id)
+                                        }}
                                     >
                                         <MdEdit size="25px" className="md:w-5 h-full" />
                                     </button>
                                     <button
-                                        onClick={() =>  deleteData(dataType,item.id, setData)}
+                                        onClick={() =>  deleteData(selectedTable,item.id)}
                                     >
                                         <MdDeleteForever size="25px" className="md:w-5" />
                                     </button>

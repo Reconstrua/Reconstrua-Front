@@ -1,11 +1,17 @@
 import { useForm } from "react-hook-form"
-import { postData, updateData } from "../../utils/apiFunctions";
+import { getDataById, postData, updateData } from "../../utils/apiFunctions";
 import { Button } from "../Button";
+import { ToggleModalContext } from "../../contexts/ToggleModalContext";
+import { useContext, useEffect } from "react";
 
 export function CompanyForm({ method, id }) {
+
+    const {isOpen} = useContext(ToggleModalContext)
+
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors }
     } = useForm();
 
@@ -20,9 +26,33 @@ export function CompanyForm({ method, id }) {
             break
     }
 
+    useEffect(()=>{
+        const fetchData = async () =>{
+            if (isOpen && method === "put" && id){
+                try{
+                    const data = await getDataById("companies", id);
+                    setValue("company_name", data.company_name);
+                    setValue("email", data.email);
+                    setValue("phone", data.phone);
+                    setValue("website", data.website);
+                    setValue("cep", data.cep);
+                    setValue("street", data.street);
+                    setValue("neighborhood", data.neighborhood);
+                    setValue("city", data.city);
+                    setValue("state", data.state);
+                    setValue("address_number", data.address_number);
+                    setValue("description", data.description);
+                }catch(error){
+                    console.log(error)
+                }
+            }
+        }
+        fetchData()
+    },[isOpen, method, id]);
+
     return (
 
-        <div className="grid gap-6 mb-6 w-1/2 p-16 sm:w-full">
+        <div className={method === "post" ? "grid gap-6 mb-6 w-1/2 p-16 sm:w-full" : "grid gap-6 mb-6 p-16 w-full"}>
             <div className="flex flex-col w-full gap-6">
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Nome da sua empresa</label>
@@ -129,7 +159,7 @@ export function CompanyForm({ method, id }) {
                         {errors?.state && <p className="text-[#ff1e1e]">{errors.state.message}</p>}
                     </div>
                     <div className="w-1/2">
-                        <label htmlFor="adress_number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Número da casa</label>
+                        <label htmlFor="address_number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Número da casa</label>
                         <input type="text" id="address_number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" placeholder="Digite o número da casa"
                             {...register("address_number", { required: "O número é obrigatório!" })}
                         />

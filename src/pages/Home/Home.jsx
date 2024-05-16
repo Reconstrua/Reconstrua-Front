@@ -111,7 +111,7 @@ export function Home() {
               profileImg={Paulo}
               profileLink="https://github.com/Paulo-Ricard0"
               name="Paulo Ricardo"
-              position="Desenvolvedor Full-Stack"
+              position="Desenvolvedor Back-End"
               alt="Paulo Ricardo" />
             <ProfileCard
               profileImg={Joao}

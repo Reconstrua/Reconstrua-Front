@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
   function logoutAdm() {
     localStorage.removeItem("jwtToken");
     setIsAuthenticated(false);
-    console.log("caiu logout");
   }
 
   if (isLoading) {
