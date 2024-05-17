@@ -14,7 +14,7 @@ dayjs.locale("pt-br");
 
 
 
-export const DashTable = ({ data}) => {
+export const DashTable = ({ data }) => {
     const {toggleModal, setId} = useContext(ToggleModalContext)
     const {selectedTable} = useContext(SelectedTableContext)
     if (data.length === 0) {
@@ -22,13 +22,11 @@ export const DashTable = ({ data}) => {
      }
 
     const getColumnHeaders = () => {
-        // Crie um array vazio para armazenar os cabeçalhos das colunas
         let headers = [];
 
-        // Adicione os cabeçalhos comuns a ambas as tabelas
         headers.push("ID", "Nome");
 
-        // Se o tipo de dados for voluntários, adicione as colunas específicas dos voluntários
+        // Se o tipo de dados for voluntários, adicione as colunas específicas dos voluntário
         if (selectedTable === 'voluntaries') {
             headers.push("Sobrenome", "Email", "Telefone", "Descrição", "Data de Registro", "Data de Atualização");
             // Adicione mais colunas específicas dos voluntários conforme necessário

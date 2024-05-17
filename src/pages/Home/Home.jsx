@@ -101,7 +101,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="flex bg-light-green w-full h-screen flex-col">
+      <section className="flex bg-light-green w-full h-screen flex-col ">
         <div className="flex w-full px-[5%] gap-14 py-10 h-screen flex-col justify-center items-center">
           <h1 className="text-titleClamp md:text-2xl font-semibold text-component-dark">
             Conheça Nossa Equipe

@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
         password: `${data.password}`,
       });
       if (response.status === 200) {
-        const token = response.data.token;
+        const token = await response.data.token;
         localStorage.setItem("jwtToken", token);
         setIsAuthenticated(true);
         navigate("/dashboard/admin");

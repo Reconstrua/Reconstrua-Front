@@ -10,7 +10,7 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <header className="drop-shadow-lg sticky top-0 z-50 flex px-[5%]  w-full justify-center py-4 bg-slate-700 bg-dark-green md gap-4 lg:flex-col items-center">
+      <header className="drop-shadow-lg sticky top-0 z-50 flex px-[5%]  w-full justify-center py-4 bg-dark-green md gap-4 lg:flex-col items-center">
 
         <nav className="flex justify-between items-center relative w-full">
           <img src={reconstruaLogo} className="lg:w-44" alt="Reconstrua WebSite Logo" />

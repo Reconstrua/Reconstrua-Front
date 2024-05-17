@@ -5,7 +5,6 @@ import { DashTable } from "../../components/Table"
 import { TextCard } from "../../components/TextCard"
 import { getBeneficiaries, getCompanies, getVoluntaries } from "../../utils/apiFunctions.js"
 import { useState } from "react";
-import { ToggleModalProvider } from "../../contexts/ToggleModalContext.jsx";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext.jsx"
 import {SelectedTableContext} from "../../contexts/SelectedTableContext.jsx"
@@ -13,7 +12,7 @@ import {SelectedTableContext} from "../../contexts/SelectedTableContext.jsx"
 
 export function Dashboard() {
     const { logoutAdm } = useContext(AuthContext)
-    const { selectedTable, setSelectedTable } = useContext(SelectedTableContext)
+    const {setSelectedTable } = useContext(SelectedTableContext)
     const [data, setData] = useState([]);
 
 
@@ -38,7 +37,7 @@ export function Dashboard() {
 
     return (
         <>
-            <ToggleModalProvider>
+            
                 <Modal/>
                 <div className="bg-dark-green h-screen p-12 flex flex-col gap-5">
                     <img src={reconstruaLogo} className="lg:w-44 mx-auto mb-12" alt="Reconstrua WebSite Logo" />
@@ -56,13 +55,13 @@ export function Dashboard() {
                             <Button onClick={handleGetCompanies} buttonClass="mt-0 py-2 px-2">Empresa</Button>
                         </div>
                     </div>
-                    <DashTable data={data}  setData={setData} />
+                    <DashTable data={data} />
                     <div className="gap-2 flex lg:flex-wrap justify-end">
                         <Button  link="/" buttonClass="mt-0 py-2 px-2">Voltar</Button>
                         <Button onClick={logoutAdm} link="/" buttonClass="mt-0 py-2 px-2">Logout</Button>
                     </div>
                 </div>
-            </ToggleModalProvider>
+            
         </>
     )
 }

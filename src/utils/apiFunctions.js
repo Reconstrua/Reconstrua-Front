@@ -1,80 +1,66 @@
 import { toast } from 'react-toastify';
-
-import { AxiosAPI } from "../AxiosConfig"
-
-const token = localStorage.getItem("jwtToken")
+import { AxiosAPI } from "../AxiosConfig";
 
 export async function getVoluntaries() {
   try {
+    const token = localStorage.getItem("jwtToken");
     const response = await AxiosAPI.get("/voluntaries", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
     switch (response.status) {
       case 200:
-        return response.data.voluntaries
-        break;
+        return response.data.voluntaries;
       default:
-        break;
+        throw new Error('Unexpected response status');
     }
-
   } catch (error) {
-    if (error.message.includes("404")) {
-
-    } else {
-      console.log(error)
-    }
+    handleError(error);
   }
 }
+
 export async function getBeneficiaries() {
   try {
+    const token = localStorage.getItem("jwtToken");
     const response = await AxiosAPI.get("/beneficiaries", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
     switch (response.status) {
       case 200:
-        return response.data.beneficiaries
-        break;
+        return response.data.beneficiaries;
       default:
-        break;
+        throw new Error('Unexpected response status');
     }
-
   } catch (error) {
-    if (error.message.includes("404")) {
-      setData([])
-    } else {
-      console.log(error)
-    }
+    handleError(error);
   }
 }
+
 export async function getCompanies() {
   try {
+    const token = localStorage.getItem("jwtToken");
     const response = await AxiosAPI.get("/companies", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
     switch (response.status) {
       case 200:
-        return response.data.companies
-        break;
+        return response.data.companies;
       default:
-        break;
+        throw new Error('Unexpected response status');
     }
-
   } catch (error) {
-    if (error.message.includes("404")) {
-      setData([])
-    } else {
-      console.log(error)
-    }
+    handleError(error);
   }
 }
+
 export async function deleteData(selectedTable, id) {
   try {
+    const token = localStorage.getItem("jwtToken");
     await toast.promise(
       AxiosAPI.delete(`/${selectedTable}/${id}`, {
         headers: {
@@ -84,57 +70,53 @@ export async function deleteData(selectedTable, id) {
       pending: 'Excluindo...',
       success: 'Excluído com Sucesso!',
       error: 'Erro ao excluir!'
-    })
+    });
 
     switch (selectedTable) {
       case "voluntaries":
-        getVoluntaries()
-        break;
+        return await getVoluntaries();
       case "beneficiaries":
-        await getBeneficiaries()
-        break;
+        return await getBeneficiaries();
       case "companies":
-        await getCompanies()
-        break;
+        return await getCompanies();
       default:
-        location.reload()
-        break;
+        return null;
     }
 
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    return [];
   }
 }
 
-
 export async function getDataById(selectedTable, id) {
   try {
+    const token = localStorage.getItem("jwtToken");
     const response = await AxiosAPI.get(`/${selectedTable}/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
-    })
+    });
     switch (response.status) {
       case 200:
         if (selectedTable === "voluntaries") {
-          return(response.data.voluntary)
+          return response.data.voluntary;
         } else if (selectedTable === "beneficiaries") {
-          return(response.data.beneficiary)
+          return response.data.beneficiary;
         } else if (selectedTable === "companies") {
-          return(response.data.company)
+          return response.data.company;
         }
-        break;
       default:
-        break;
+        throw new Error('Unexpected response status');
     }
   } catch (error) {
-    console.log(error)
+    handleError(error);
   }
 }
 
-
 export async function updateData(selectedTable, dataId, newData) {
   try {
+    const token = localStorage.getItem("jwtToken");
     let response; 
     switch (selectedTable) {
       case "voluntaries":
@@ -159,34 +141,59 @@ export async function updateData(selectedTable, dataId, newData) {
         });
         break;
       default:
-        console.log("selectedTable possui um valor inválido")
-        break;
+        throw new Error("selectedTable possui um valor inválido");
     }
     return response;
   } catch (error) {
-    console.log(error);
+    handleError(error);
   }
 }
 
 export async function postData(selectedTable, data) {
   try {
+    const token = localStorage.getItem("jwtToken");
     let response; 
     switch (selectedTable) {
       case "voluntaries":
-        response = await AxiosAPI.post(`/voluntaries`, data);
+        response = await AxiosAPI.post(`/voluntaries`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         break;
       case "beneficiaries":
-        response = await AxiosAPI.post(`/beneficiaries`, data);
+        response = await AxiosAPI.post(`/beneficiaries`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         break;
       case "companies":
-        response = await AxiosAPI.post(`/companies`, data);
+        response = await AxiosAPI.post(`/companies`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         break;
       default:
-        console.log("selectedTable possui um valor inválido")
-        break;
+        throw new Error("selectedTable possui um valor inválido");
     }
     return response;
   } catch (error) {
-    console.log(error);
+    handleError(error);
+  }
+}
+
+function handleError(error) {
+  if (error.response) {
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
+    console.error('Response error:', error.response.data);
+  } else if (error.request) {
+    // The request was made but no response was received
+    console.error('Request error:', error.request);
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    console.error('Error', error.message);
   }
 }
