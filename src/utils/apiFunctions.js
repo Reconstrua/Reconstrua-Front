@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { AxiosAPI } from "../AxiosConfig";
 
 export async function getVoluntaries() {
+  const token = localStorage.getItem("jwtToken");
   try {
     const token = localStorage.getItem("jwtToken");
     const response = await AxiosAPI.get("/voluntaries", {
@@ -16,7 +17,7 @@ export async function getVoluntaries() {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    handleError(error);
+    throw new Error(error.response.data.message);
   }
 }
 
@@ -35,7 +36,7 @@ export async function getBeneficiaries() {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    handleError(error);
+    throw new Error(error.response.data.message);
   }
 }
 
@@ -54,7 +55,7 @@ export async function getCompanies() {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    handleError(error);
+    throw new Error(error.response.data.message);
   }
 }
 
@@ -110,7 +111,7 @@ export async function getDataById(selectedTable, id) {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    handleError(error);
+    throw new Error(error.response.data.message);
   }
 }
 
@@ -145,7 +146,7 @@ export async function updateData(selectedTable, dataId, newData) {
     }
     return response;
   } catch (error) {
-    handleError(error);
+    throw new Error(error.response.data.message);
   }
 }
 
@@ -180,20 +181,7 @@ export async function postData(selectedTable, data) {
     }
     return response;
   } catch (error) {
-    handleError(error);
+    throw new Error(error.response.data.message);
   }
 }
 
-function handleError(error) {
-  if (error.response) {
-    // The request was made and the server responded with a status code
-    // that falls out of the range of 2xx
-    console.error('Response error:', error.response.data);
-  } else if (error.request) {
-    // The request was made but no response was received
-    console.error('Request error:', error.request);
-  } else {
-    // Something happened in setting up the request that triggered an Error
-    console.error('Error', error.message);
-  }
-}

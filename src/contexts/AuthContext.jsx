@@ -1,23 +1,35 @@
 import { createContext, useEffect, useState } from "react"
-import {AxiosAPI} from "../AxiosConfig"
-import {useNavigate} from "react-router-dom"
-
+import { AxiosAPI } from "../AxiosConfig"
+import { useNavigate } from "react-router-dom"
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Estado de carregamento
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false || true);
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-    if (token) {
-      setIsAuthenticated(true);
+    if (!token) {
+      setIsAuthenticated(false);
+      navigate("/login/admin")
     }
-    setIsLoading(false); // Marca o carregamento como concluído
-  }, []);
+  }, [])
 
-  const navigate = useNavigate();
+  function tokenValidation(token) {
+    const decodedToken = jwtDecode(token);
+    if (decodedToken.exp * 1000 < Date.now()) {
+      setIsAuthenticated(false);
+      navigate("/login/admin")
+    }
+    localStorage.setItem("jwtToken", token);
+    setIsAuthenticated(true);
+    navigate("/dashboard/admin");
+  }
+
+
+
 
   async function loginAdm(data) {
     try {
@@ -27,9 +39,7 @@ export const AuthProvider = ({ children }) => {
       });
       if (response.status === 200) {
         const token = await response.data.token;
-        localStorage.setItem("jwtToken", token);
-        setIsAuthenticated(true);
-        navigate("/dashboard/admin");
+        tokenValidation(token);
       }
     } catch (error) {
       console.log(error);
@@ -41,9 +51,6 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   }
 
-  if (isLoading) {
-    return <div className="bg-dark-green h-screen w-full flex justify-center items-center text-component-light font-semibold">Carregando...</div>; // Renderiza um indicador de carregamento enquanto verifica o token
-  }
 
   return (
     <AuthContext.Provider value={{ loginAdm, logoutAdm, isAuthenticated }}>
