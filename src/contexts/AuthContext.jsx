@@ -7,14 +7,9 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false || true);
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      tokenValidation(token);
-    } 
-  }, []);
+  
 
   const tokenValidation = (token) => {
     try {
@@ -56,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ loginAdm, logoutAdm, isAuthenticated }}>
+    <AuthContext.Provider value={{ loginAdm, logoutAdm, isAuthenticated, tokenValidation}}>
       {children}
     </AuthContext.Provider>
   );

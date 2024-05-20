@@ -3,16 +3,23 @@ import { TextCard } from "../../components/TextCard"
 import { MdAdminPanelSettings } from "react-icons/md";
 import { Button } from "../../components/Button";
 import { useForm } from "react-hook-form"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
 
 export function LoginAdmin() {
   const { register, handleSubmit, formState:{errors} } = useForm()
-  const {loginAdm} = useContext(AuthContext)
+  const {loginAdm, tokenValidation} = useContext(AuthContext)
 
   const onSubmit = (data) => loginAdm(data)
 
+  useEffect(() => {
+    console.log("passou")
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      tokenValidation(token);
+    } 
+  }, []);
   
 
   return (
