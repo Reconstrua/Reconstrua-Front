@@ -1,6 +1,7 @@
 import React from 'react';
 
 export function ErrorFallback({ error, resetErrorBoundary }) {
+  console.log(error);
   return (
     <div role="alert" className="p-4 bg-red-100 rounded-lg text-center">
       <h2 className="text-xl font-semibold text-red-600">Algo deu errado ;(</h2>

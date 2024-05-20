@@ -17,7 +17,7 @@ export async function getVoluntaries() {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    throw new Error(error.response.data.message);
+    throw error;
   }
 }
 
@@ -36,7 +36,7 @@ export async function getBeneficiaries() {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    throw new Error(error.response.data.message);
+    throw error
   }
 }
 
@@ -55,7 +55,7 @@ export async function getCompanies() {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    throw new Error(error.response.data.message);
+    throw error
   }
 }
 
@@ -111,7 +111,7 @@ export async function getDataById(selectedTable, id) {
         throw new Error('Unexpected response status');
     }
   } catch (error) {
-    throw new Error(error.response.data.message);
+    throw error
   }
 }
 
@@ -146,7 +146,7 @@ export async function updateData(selectedTable, dataId, newData) {
     }
     return response;
   } catch (error) {
-    throw new Error(error.response.data.message);
+    throw error
   }
 }
 
@@ -181,7 +181,7 @@ export async function postData(selectedTable, data) {
     }
     return response;
   } catch (error) {
-    throw new Error(error.response.data.message);
+    throw error
   }
 }
 
