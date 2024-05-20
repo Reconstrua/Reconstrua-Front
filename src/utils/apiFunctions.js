@@ -2,7 +2,6 @@ import { toast } from 'react-toastify';
 import { AxiosAPI } from "../AxiosConfig";
 
 export async function getVoluntaries() {
-  const token = localStorage.getItem("jwtToken");
   try {
     const token = localStorage.getItem("jwtToken");
     const response = await AxiosAPI.get("/voluntaries", {
@@ -118,27 +117,42 @@ export async function getDataById(selectedTable, id) {
 export async function updateData(selectedTable, dataId, newData) {
   try {
     const token = localStorage.getItem("jwtToken");
-    let response; 
+    let response;
     switch (selectedTable) {
       case "voluntaries":
-        response = await AxiosAPI.put(`/voluntaries/${dataId}`, newData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        response = await toast.promise(
+          AxiosAPI.put(`/voluntaries/${dataId}`, newData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }), {
+          pending: 'Atualizando...',
+          success: 'Atualizado com sucesso!',
+          error: 'Erro ao atualizar!'
         });
         break;
       case "beneficiaries":
-        response = await AxiosAPI.put(`/beneficiaries/${dataId}`, newData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        response = await toast.promise(
+          AxiosAPI.put(`/beneficiaries/${dataId}`, newData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }), {
+          pending: 'Atualizando...',
+          success: 'Atualizado com sucesso!',
+          error: 'Erro ao atualizar!'
         });
         break;
       case "companies":
-        response = await AxiosAPI.put(`/companies/${dataId}`, newData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        response = await toast.promise(
+          AxiosAPI.put(`/companies/${dataId}`, newData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }), {
+          pending: 'Atualizando...',
+          success: 'Atualizado com sucesso!',
+          error: 'Erro ao atualizar!'
         });
         break;
       default:
@@ -153,28 +167,43 @@ export async function updateData(selectedTable, dataId, newData) {
 export async function postData(selectedTable, data) {
   try {
     const token = localStorage.getItem("jwtToken");
-    let response; 
+    let response;
     switch (selectedTable) {
       case "voluntaries":
-        response = await AxiosAPI.post(`/voluntaries`, data, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        response = await toast.promise(
+          AxiosAPI.post("/voluntaries", data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),{
+            pending: 'Enviando...',
+            success: 'Enviado com sucesso!',
+            error: 'Erro ao Enviar!'
+          });
         break;
       case "beneficiaries":
-        response = await AxiosAPI.post(`/beneficiaries`, data, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        response = await toast.promise(
+          AxiosAPI.post("/beneficiaries", data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),{
+            pending: 'Enviando...',
+            success: 'Enviado com sucesso!',
+            error: 'Erro ao Enviar!'
+          });
         break;
       case "companies":
-        response = await AxiosAPI.post(`/companies`, data, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        response = await toast.promise(
+          AxiosAPI.post("/companies", data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),{
+            pending: 'Enviando...',
+            success: 'Enviado com sucesso!',
+            error: 'Erro ao Enviar!'
+          });
         break;
       default:
         throw new Error("selectedTable possui um valor inválido");

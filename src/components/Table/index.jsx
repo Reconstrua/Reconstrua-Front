@@ -45,7 +45,7 @@ export const DashTable = ({ data }) => {
         <div className="overflow-x-auto rounded-[16px]">
             <table className="table-auto w-full">
                 <thead>
-                    <tr className="bg-[#60817c] text-light-text">
+                    <tr className="bg-[#60817c] sticky top-0 text-light-text">
                         {/* Mapeie dinamicamente os cabeçalhos da coluna */}
                         {getColumnHeaders().map((header, index) => (
                             <th key={index} className="px-4 py-2">{header}</th>
