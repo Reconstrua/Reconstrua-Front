@@ -49,7 +49,7 @@ export function VoluntaryForm({ method, id }) {
 
     return (
 
-        <div className="grid gap-6 mb-6 w-1/2 p-16 sm:w-full">
+        <div className={method === "post" ? "grid gap-6 mb-6 w-1/2 p-16 sm:w-full" : "grid gap-6 mb-6 p-16 w-full"}>
             <div className="flex flex-col w-full gap-6">
                 <div className="flex gap-8">
                     <div className="w-1/2">
@@ -61,7 +61,7 @@ export function VoluntaryForm({ method, id }) {
                     </div>
                     <div className="w-1/2">
                         <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Sobrenome</label>
-                        <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" placeholder="Digite seu sobrenome"
+                        <input type="text" id="last_name" className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" placeholder="Digite seu sobrenome"
                             {...register("last_name", { required: "O sobrenome é obrigatório!" })}
                         />
                         {errors?.last_name && <p className="text-[#ff1e1e]">{errors.last_name.message}</p>}
@@ -107,7 +107,7 @@ export function VoluntaryForm({ method, id }) {
                     {errors?.description && <p className="text-[#ff1e1e]">{errors.description.message}</p>}
                 </div>
             </div>
-            <Button buttonClass="w-full mt-0 gap-0" onClick={() => handleSubmit(onSubmit)()} >Me tornar um voluntário</Button>
+            <Button buttonClass="w-full mt-0 gap-0" onClick={() => handleSubmit(onSubmit)()} >Enviar</Button>
         </div>
     )
 };
