@@ -57,14 +57,14 @@ export function VoluntaryForm({ method, id }) {
                     <div className="w-1/2">
                         <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Nome</label>
                         <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" placeholder="Digite seu nome"
-                            {...register("first_name", { required: "O nome é obrigatório!" })}
+                            {...register("first_name")}
                         />
                         {errors?.first_name && <p className="text-[#ff1e1e]">{errors.first_name.message}</p>}
                     </div>
                     <div className="w-1/2">
                         <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Sobrenome</label>
                         <input type="text" id="last_name" className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" placeholder="Digite seu sobrenome"
-                            {...register("last_name", { required: "O sobrenome é obrigatório!" })}
+                            {...register("last_name")}
                         />
                         {errors?.last_name && <p className="text-[#ff1e1e]">{errors.last_name.message}</p>}
                     </div>
@@ -79,26 +79,14 @@ export function VoluntaryForm({ method, id }) {
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Celular</label>
                     <input type="text" id="company" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" placeholder="XX XXXXX-XXXX"
-                        {...register("phone", {
-                            required: "O telefone é obrigatório!",
-                            pattern: {
-                                value: /^\d{11}$/,
-                                message: "Por favor, insira um número de telefone válido",
-                            },
-                        })}
+                        {...register("phone")}
                     />
                     {errors?.phone && <p className="text-[#ff1e1e]">{errors.phone.message}</p>}
                 </div>
                 <div className="mb-6">
                     <label htmlFor="large-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">Por que você quer ser um voluntário?</label>
                     <input type="text" id="large-input" className="block w-full p-12 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text"
-                        {...register("description", {
-                            required: "A descrição é obrigatória!",
-                            minLength: {
-                                value: 10,
-                                message: "A descrição deve ter pelo menos 10 caracteres",
-                            },
-                        })}
+                        {...register("description")}
                     />
                     {errors?.description && <p className="text-[#ff1e1e]">{errors.description.message}</p>}
                 </div>
