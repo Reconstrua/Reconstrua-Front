@@ -36,10 +36,10 @@ export const beneficiarySchema = z.object({
     .nonempty({ message: "O estado é obrigatório!" })
     .min(2, { message: "O estado deve ter pelo menos 2 caracteres" }),
 
-    address_number: 
-    z.number({message: "O número da casa deve ser um número!"})
-    .int({message: "O número da casa deve ser um número inteiro!"})
-    .nonnegative({message: "O número da casa deve ser um número positivo!"}),
+    address_number: z.string()
+    .nonempty({ message: "O número da casa é obrigatório!" })
+    .regex(/^\d+$/, { message: "O número da casa deve conter apenas números" })
+    .transform((val) => parseInt(val, 10)),
 
     description: z.string().nonempty({ message: "A descrição é obrigatória!" })
 });
