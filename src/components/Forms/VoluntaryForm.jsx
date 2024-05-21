@@ -3,19 +3,21 @@ import { getDataById, postData, updateData } from "../../utils/apiFunctions";
 import { Button } from "../Button";
 import { useContext, useEffect } from "react";
 import { ToggleModalContext } from "../../contexts/ToggleModalContext";
+import { voluntarySchema } from "../../utils/resolvers/voluntaryResolver";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function VoluntaryForm({ method, id }) {
 
     const {isOpen} = useContext(ToggleModalContext)
 
-    
-    
     const {
         register,
         handleSubmit,
         setValue,
         formState: { errors }
-    } = useForm();
+    } = useForm({
+        resolver: zodResolver(voluntarySchema)
+    });
     
     useEffect(() => {
         const fetchData = async () => {
