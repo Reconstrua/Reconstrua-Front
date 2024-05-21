@@ -72,13 +72,7 @@ export function VoluntaryForm({ method, id }) {
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-component-light">E-Mail</label>
                     <input type="text" id="company" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-light-green dark:border-gray-600 dark:placeholder-light-text dark:text-light-text" placeholder="Digite seu endereço de e-mail"
-                        {...register("email", {
-                            required: "O e-mail é obrigatório!",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "Por favor, insira um endereço de email válido",
-                            },
-                        })}
+                        {...register("email")}
                     />
                     {errors?.email && <p className="text-[#ff1e1e]">{errors.email.message}</p>}
                 </div>
