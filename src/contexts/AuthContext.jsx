@@ -7,9 +7,15 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false || true);
+  const [isAuthenticated, setIsAuthenticated] = useState(state => {
+    if (!localStorage.getItem("jwtToken")) {
+      state = false;
+    }
+    state = true
+    console.log(state)
+  });
 
-  
+  console.log(isAuthenticated)
 
   const tokenValidation = (token) => {
     try {
@@ -21,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         localStorage.setItem("jwtToken", token);
         navigate("/dashboard/admin");
-      }
+      } 
     } catch (error) {
       setIsAuthenticated(false);
       navigate("/login/admin");

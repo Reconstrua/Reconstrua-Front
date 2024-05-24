@@ -7,5 +7,5 @@ import {AuthContext} from "../../contexts/AuthContext"
 
 export function PrivateRoute({children}){
   const {isAuthenticated} = useContext(AuthContext)
-  return isAuthenticated === true? children: <Navigate to="/"/>
+  return isAuthenticated === true ? children : <Navigate to="/login/admin"/>
 }
