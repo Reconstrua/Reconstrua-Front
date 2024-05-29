@@ -12,10 +12,7 @@ export const AuthProvider = ({ children }) => {
       state = false;
     }
     state = true
-    console.log(state)
   });
-
-  console.log(isAuthenticated)
 
   const tokenValidation = (token) => {
     try {

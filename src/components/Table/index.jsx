@@ -11,8 +11,6 @@ import "./index.css"
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
 
-
-
 export const DashTable = ({ data }) => {
     const {toggleModal, setId} = useContext(ToggleModalContext)
     const {selectedTable} = useContext(SelectedTableContext)

@@ -14,7 +14,6 @@ export function LoginAdmin() {
   const onSubmit = (data) => loginAdm(data)
 
   useEffect(() => {
-    console.log("passou")
     const token = localStorage.getItem("jwtToken");
     if (token) {
       tokenValidation(token);
