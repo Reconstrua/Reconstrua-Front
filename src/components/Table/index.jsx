@@ -6,7 +6,6 @@ import "dayjs/locale/pt-br";
 import { useContext } from "react";
 import { ToggleModalContext } from "../../contexts/ToggleModalContext";
 import { SelectedTableContext } from "../../contexts/SelectedTableContext";
-import { NotFoundError } from "../NotFoundError";
 import "./index.css"
 
 dayjs.extend(relativeTime);
@@ -17,9 +16,6 @@ dayjs.locale("pt-br");
 export const DashTable = ({ data }) => {
     const {toggleModal, setId} = useContext(ToggleModalContext)
     const {selectedTable} = useContext(SelectedTableContext)
-    if (data.length === 0) {
-        return <NotFoundError/>;
-     }
 
     const getColumnHeaders = () => {
         let headers = [];
